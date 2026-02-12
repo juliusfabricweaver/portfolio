@@ -1,0 +1,228 @@
+/* ── Reset & Base ─────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #333;
+  color: #fff;
+}
+
+html,
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #000;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ── Layout ──────────────────────────────────── */
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+}
+
+section {
+  margin-top: 4rem;
+}
+
+/* ── Spotlight ───────────────────────────────── */
+
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03), transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  will-change: top, left;
+}
+
+/* ── Typography ──────────────────────────────── */
+
+.mono {
+  font-family: "JetBrains Mono", "Geist Mono", "SF Mono", ui-monospace, monospace;
+}
+
+/* ── Hero ────────────────────────────────────── */
+
+.hero-greeting {
+  font-size: 0.875rem;
+  color: #555;
+  letter-spacing: 0.02em;
+  animation: fadeInUp 0.5s ease both;
+}
+
+.hero-name {
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: #ededed;
+  line-height: 1.15;
+  margin-top: 0.5rem;
+  animation: fadeInUp 0.5s ease both;
+  animation-delay: 0.15s;
+}
+
+.hero-tagline {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 0.5rem;
+  animation: fadeInUp 0.5s ease both;
+  animation-delay: 0.3s;
+}
+
+.hero-tagline::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Section Labels ──────────────────────────── */
+
+.section-label {
+  font-size: 0.8125rem;
+  color: #555;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── About ───────────────────────────────────── */
+
+.about p {
+  line-height: 1.7;
+}
+
+/* ── Contact ─────────────────────────────────── */
+
+.contact-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0;
+  align-items: center;
+}
+
+.contact-links li {
+  display: flex;
+  align-items: center;
+}
+
+.contact-links .sep {
+  color: #333;
+  margin: 0 0.75rem;
+  user-select: none;
+}
+
+/* ── Links ───────────────────────────────────── */
+
+a {
+  color: #999;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #fff;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.2s ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+a:focus-visible {
+  outline: 1px solid #555;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Footer ──────────────────────────────────── */
+
+footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #1a1a1a;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+/* ── Animations ──────────────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Reduced Motion ──────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 3rem 1.25rem;
+  }
+
+  section {
+    margin-top: 3rem;
+  }
+}
+
+/* ── Touch devices: hide spotlight ───────────── */
+
+@media (hover: none) {
+  .spotlight {
+    display: none;
+  }
+}

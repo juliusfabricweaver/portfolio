@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Julien Hayek</title>
+  <meta name="description" content="Julien Hayek — Software Engineer">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Julien Hayek">
+  <meta property="og:description" content="Software Engineer">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Julien Hayek">
+  <meta name="twitter:description" content="Software Engineer">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <main class="page">
+    <header>
+      <p class="hero-greeting mono">hi, i'm</p>
+      <h1 class="hero-name mono">Julien Hayek</h1>
+      <p class="hero-tagline mono"><span id="role">software engineer</span></p>
+    </header>
+
+    <section class="about">
+      <p class="section-label mono">// about</p>
+      <p>
+        I build things, write code, and make noise.
+      </p>
+    </section>
+
+    <section class="contact">
+      <p class="section-label mono">// contact</p>
+      <ul class="contact-links mono">
+        <li><a href="https://github.com/juliusfabricweaver" target="_blank" rel="noopener noreferrer">github</a></li>
+        <li><span class="sep">·</span></li>
+        <li><a href="https://www.linkedin.com/in/jjgehbh/" target="_blank" rel="noopener noreferrer">linkedin</a></li>
+        <li><span class="sep">·</span></li>
+        <li><a href="#" id="email" onclick="copyEmail(event)">email</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Julien Hayek</p>
+    </footer>
+  </main>
+
+  <script>
+    const spotlight = document.querySelector('.spotlight');
+    document.addEventListener('mousemove', (e) => {
+      spotlight.style.top = e.clientY + 'px';
+      spotlight.style.left = e.clientX + 'px';
+    });
+
+    const roles = ['software engineer', 'musician', 'gym-goer', 'reader'];
+    const el = document.getElementById('role');
+    let roleIndex = 0;
+    let charIndex = roles[0].length;
+    let deleting = true;
+
+    function type() {
+      const current = roles[roleIndex];
+      if (deleting) {
+        charIndex--;
+        el.textContent = current.substring(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(type, 400);
+          return;
+        }
+        setTimeout(type, 40);
+      } else {
+        const next = roles[roleIndex];
+        charIndex++;
+        el.textContent = next.substring(0, charIndex);
+        if (charIndex === next.length) {
+          deleting = true;
+          setTimeout(type, 2000);
+          return;
+        }
+        setTimeout(type, 70);
+      }
+    }
+
+    setTimeout(type, 2000);
+
+    function copyEmail(e) {
+      e.preventDefault();
+      const addr = 'julienjhayek' + '@' + 'gmail.com';
+      const el = document.getElementById('email');
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(addr);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = addr;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      el.textContent = 'copied!';
+      setTimeout(() => { el.textContent = 'email'; }, 1500);
+    }
+  </script>
+</body>
+</html>
